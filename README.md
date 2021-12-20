@@ -25,6 +25,7 @@ Add dependencies to your pom.xml:
 	<artifactId>webmagic-core</artifactId>
 	<version>1.0.0</version>
 </dependency>
+
 <dependency>
 <groupId>com.itao</groupId>
 <artifactId>webmagic-extension</artifactId>

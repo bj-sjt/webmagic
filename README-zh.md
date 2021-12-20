@@ -47,13 +47,13 @@ webmagic使用maven管理依赖，在项目中添加对应的依赖即可使用w
 </dependency>
 ```
         
-WebMagic 使用slf4j-log4j12作为slf4j的实现.如果你自己定制了slf4j的实现，请在项目中去掉此依赖。
+WebMagic 使用log4j-slf4j-impl作为slf4j的实现.如果你自己定制了slf4j的实现，请在项目中去掉此依赖。
 
 ```xml
 <exclusions>
     <exclusion>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-slf4j-impl</artifactId>
     </exclusion>
 </exclusions>
 ```
