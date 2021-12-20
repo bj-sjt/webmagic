@@ -38,12 +38,12 @@ webmagic使用maven管理依赖，在项目中添加对应的依赖即可使用w
 <dependency>
     <groupId>com.itao</groupId>
     <artifactId>webmagic-core</artifactId>
-    <version>0.7.3</version>
+    <version>1.0.0</version>
 </dependency>
 <dependency>
     <groupId>com.itao</groupId>
     <artifactId>webmagic-extension</artifactId>
-    <version>0.7.3</version>
+    <version>1.0.0</version>
 </dependency>
 ```
         
