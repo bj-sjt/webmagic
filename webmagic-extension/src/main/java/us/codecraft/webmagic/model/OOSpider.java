@@ -42,27 +42,22 @@ public class OOSpider extends Spider {
 
     private ModelPageProcessor modelPageProcessor;
 
-    private final ModelPipeline modelPipeline;
-
-
-
     public OOSpider(Site site) {
         super(ModelPageProcessor.create(site));
-        modelPipeline = new ModelPipeline();
-        super.addPipeline(modelPipeline);
     }
 
     public static OOSpider create(Site site) {
         return new OOSpider(site);
     }
 
-    public <T> OOSpider addPageModel(PageModelPipeline<T> pageModelPipeline, Class<T> pageModel) {
+    public <T> OOSpider addPageModel(List<PageModelPipeline<T>> pageModelPipeline, Class<T> pageModel) {
         if(modelPageProcessor == null) {
             modelPageProcessor = (ModelPageProcessor) this.pageProcessor;
         }
         modelPageProcessor.addPageModel(pageModel);
+        ModelPipeline<T> modelPipeline = new ModelPipeline<>();
+        super.addPipeline(modelPipeline);
         modelPipeline.put(pageModel, pageModelPipeline);
-
         return this;
     }
 

@@ -18,29 +18,34 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author code4crafter@gmail.com <br>
  * @since 0.2.0
  */
-class ModelPipeline implements Pipeline {
+class ModelPipeline<T> implements Pipeline {
 
-    private final Map<Class, PageModelPipeline> pageModelPipelines = new ConcurrentHashMap<>();
+    private final Map<Class<T>, List<PageModelPipeline<T>>> pageModelPipelines = new ConcurrentHashMap<>();
 
     public ModelPipeline() {
     }
 
-    public void put(Class clazz, PageModelPipeline pipeline) {
+    public void put(Class<T> clazz, List<PageModelPipeline<T>> pipeline) {
         pageModelPipelines.put(clazz, pipeline);
     }
 
     @Override
     public void process(ResultItems resultItems, Task task) {
-        for (Map.Entry<Class, PageModelPipeline> classPageModelPipelineEntry : pageModelPipelines.entrySet()) {
+        for (Map.Entry<Class<T>, List<PageModelPipeline<T>>> classPageModelPipelineEntry : pageModelPipelines.entrySet()) {
+            List<PageModelPipeline<T>> pipelines = classPageModelPipelineEntry.getValue();
             Object o = resultItems.get(classPageModelPipelineEntry.getKey().getCanonicalName());
             if (o != null) {
-                Annotation annotation = classPageModelPipelineEntry.getKey().getAnnotation(ExtractBy.class);
-                if (annotation == null || !((ExtractBy) annotation).multi()) {
-                    classPageModelPipelineEntry.getValue().process(o, task);
+                ExtractBy annotation = classPageModelPipelineEntry.getKey().getAnnotation(ExtractBy.class);
+                if (annotation == null || !annotation.multi()) {
+                    for (PageModelPipeline<T> pipeline : pipelines) {
+                        pipeline.process((T)o, task);
+                    }
                 } else {
-                    List<Object> list = (List<Object>) o;
-                    for (Object o1 : list) {
-                        classPageModelPipelineEntry.getValue().process(o1, task);
+                    List<T> list = (List<T>) o;
+                    for (T o1 : list) {
+                        for (PageModelPipeline<T> pipeline : pipelines) {
+                            pipeline.process(o1, task);
+                        }
                     }
                 }
             }

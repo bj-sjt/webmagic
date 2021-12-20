@@ -25,7 +25,8 @@ public class Launcher {
                 .start();*/
 
         OOSpider.create(Site.me())
-                .addPageModel(new MysqlPageModelPipeline<>(), Baidu.class)
+                .addPageModel(Arrays.asList(new MysqlPageModelPipeline<>(), new MysqlPageModelPipeline1<>()), Baidu.class)
+                .addPageModel(Arrays.asList(new MysqlPageModelPipeline<>(), new MysqlPageModelPipeline1<>()), Baidu.class)
                 .addUrl("http://www.zongheng.com")
                 .run();
     }

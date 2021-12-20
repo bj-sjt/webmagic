@@ -3,7 +3,7 @@
     <parent>
         <groupId>com.itao</groupId>
         <artifactId>webmagic-parent</artifactId>
-        <version>0.7.3</version>
+        <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
