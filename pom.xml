@@ -27,6 +27,7 @@
         <module>webmagic-extension/</module>
         <module>webmagic-selenium</module>
         <module>webmagic-example</module>
+
     </modules>
 
     <dependencyManagement>
