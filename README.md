@@ -21,14 +21,14 @@ Add dependencies to your pom.xml:
 
 ```xml
 <dependency>
-    <groupId>us.codecraft</groupId>
-    <artifactId>webmagic-core</artifactId>
-    <version>0.7.3</version>
+	<groupId>com.itao</groupId>
+	<artifactId>webmagic-core</artifactId>
+	<version>0.7.3</version>
 </dependency>
 <dependency>
-    <groupId>us.codecraft</groupId>
-    <artifactId>webmagic-extension</artifactId>
-    <version>0.7.3</version>
+<groupId>com.itao</groupId>
+<artifactId>webmagic-extension</artifactId>
+<version>0.7.3</version>
 </dependency>
 ```
         
@@ -36,10 +36,10 @@ WebMagic use slf4j with slf4j-log4j12 implementation. If you customized your slf
 
 ```xml
 <exclusions>
-    <exclusion>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-    </exclusion>
+	<exclusion>
+		<groupId>org.apache.logging.log4j</groupId>
+		<artifactId>log4j-slf4j-impl</artifactId>
+	</exclusion>
 </exclusions>
 ```
 

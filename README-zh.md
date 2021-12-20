@@ -36,12 +36,12 @@ webmagic使用maven管理依赖，在项目中添加对应的依赖即可使用w
 
 ```xml
 <dependency>
-    <groupId>us.codecraft</groupId>
+    <groupId>com.itao</groupId>
     <artifactId>webmagic-core</artifactId>
     <version>0.7.3</version>
 </dependency>
 <dependency>
-    <groupId>us.codecraft</groupId>
+    <groupId>com.itao</groupId>
     <artifactId>webmagic-extension</artifactId>
     <version>0.7.3</version>
 </dependency>
@@ -52,8 +52,8 @@ WebMagic 使用slf4j-log4j12作为slf4j的实现.如果你自己定制了slf4j�
 ```xml
 <exclusions>
     <exclusion>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
     </exclusion>
 </exclusions>
 ```
@@ -71,15 +71,6 @@ webmagic主要包括两个包：
 	webmagic的扩展模块，提供一些更方便的编写爬虫的工具。包括注解格式定义爬虫、JSON、分布式等支持。
 	
 webmagic还包含两个可用的扩展包，因为这两个包都依赖了比较重量级的工具，所以从主要包中抽离出来，这些包需要下载源码后自己编译：：
-
-* **webmagic-saxon**
-
-	webmagic与Saxon结合的模块。Saxon是一个XPath、XSLT的解析工具，webmagic依赖Saxon来进行XPath2.0语法解析支持。
-
-* **webmagic-selenium**
-
-	webmagic与Selenium结合的模块。Selenium是一个模拟浏览器进行页面渲染的工具，webmagic依赖Selenium进行动态页面的抓取。
-	
 在项目中，你可以根据需要依赖不同的包。
 
 ### 不使用maven
@@ -156,32 +147,3 @@ public class OschinaBlog {
 ### 详细文档
 
 见[http://webmagic.io/docs/](http://webmagic.io/docs/)。
-
-### 示例
-
-webmagic-samples目录里有一些定制PageProcessor以抽取不同站点的例子。
-
-webmagic的使用可以参考：[oschina openapi 应用：博客搬家](https://git.oschina.net/yashin/MoveBlog)
-
-
-### 协议
-
-webmagic遵循[Apache 2.0协议](http://opensource.org/licenses/Apache-2.0)
-
-### 邮件组:
-
-Gmail：
-[https://groups.google.com/forum/#!forum/webmagic-java](https://groups.google.com/forum/#!forum/webmagic-java)
-
-QQ:
-[http://list.qq.com/cgi-bin/qf_invite?id=023a01f505246785f77c5a5a9aff4e57ab20fcdde871e988](http://list.qq.com/cgi-bin/qf_invite?id=023a01f505246785f77c5a5a9aff4e57ab20fcdde871e988)
-
-### QQ群：
-
-373225642(已满) 542327088
-
-### 相关项目：
-
-[Gather Platform](https://github.com/gsh199449/spider)
-
-Gather Platform 数据抓取平台是一套基于Webmagic内核的,具有Web任务配置和任务管理界面的数据采集与搜索平台。
