@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Pipeline that can collect and store results. <br>
- * Used for {@link us.codecraft.webmagic.Spider#getAll(java.util.Collection)}
+ * Used for
  *
  * @author code4crafter@gmail.com
  * @since 0.4.0
