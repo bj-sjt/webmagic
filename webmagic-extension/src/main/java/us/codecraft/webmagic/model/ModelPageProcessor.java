@@ -30,10 +30,9 @@ class ModelPageProcessor implements PageProcessor {
     }
 
 
-    public <T>ModelPageProcessor addPageModel(Class<T> clazz) {
+    public <T> void addPageModel(Class<T> clazz) {
         PageModelExtractor pageModelExtractor = PageModelExtractor.create(clazz);
         pageModelExtractorList.add(pageModelExtractor);
-        return this;
     }
 
     private ModelPageProcessor(Site site) {

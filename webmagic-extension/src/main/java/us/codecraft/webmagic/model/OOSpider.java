@@ -46,8 +46,17 @@ public class OOSpider extends Spider {
         super(ModelPageProcessor.create(site));
     }
 
+    public OOSpider(ModelPageProcessor modelPageProcessor) {
+        super(modelPageProcessor);
+        this.modelPageProcessor = modelPageProcessor;
+    }
+
     public static OOSpider create(Site site) {
         return new OOSpider(site);
+    }
+
+    public static OOSpider create(ModelPageProcessor modelPageProcessor) {
+        return new OOSpider(modelPageProcessor);
     }
 
     public <T> OOSpider addPageModel(List<PageModelPipeline<T>> pageModelPipeline, Class<T> pageModel) {

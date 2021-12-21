@@ -27,31 +27,31 @@ import static us.codecraft.webmagic.model.annotation.ExtractBy.Source.RawText;
  * @author code4crafter@gmail.com <br>
  * @since 0.2.0
  */
-class PageModelExtractor {
+class PageModelExtractor<T> {
 
-    private List<Pattern> targetUrlPatterns = new ArrayList<Pattern>();
+    private final List<Pattern> targetUrlPatterns = new ArrayList<>();
 
     private Selector targetUrlRegionSelector;
 
-    private List<Pattern> helpUrlPatterns = new ArrayList<Pattern>();
+    private final List<Pattern> helpUrlPatterns = new ArrayList<>();
 
     private Selector helpUrlRegionSelector;
 
-    private Class clazz;
+    private Class<T> clazz;
 
     private List<FieldExtractor> fieldExtractors;
 
     private Extractor objectExtractor;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public static PageModelExtractor create(Class clazz) {
-        PageModelExtractor pageModelExtractor = new PageModelExtractor();
+    public static  <T>PageModelExtractor<T> create(Class<T> clazz) {
+        PageModelExtractor<T> pageModelExtractor = new PageModelExtractor<>();
         pageModelExtractor.init(clazz);
         return pageModelExtractor;
     }
 
-    private void init(Class clazz) {
+    private void init(Class<T> clazz) {
         this.clazz = clazz;
         initClassExtractors();
         fieldExtractors = new ArrayList<>();
@@ -77,7 +77,7 @@ class PageModelExtractor {
         }
     }
 
-    private FieldExtractor getAnnotationExtractByUrl(Class clazz, Field field) {
+    private FieldExtractor getAnnotationExtractByUrl(Class<T> clazz, Field field) {
         FieldExtractor fieldExtractor = null;
         ExtractByUrl extractByUrl = field.getAnnotation(ExtractByUrl.class);
         if (extractByUrl != null) {
@@ -96,21 +96,16 @@ class PageModelExtractor {
         return fieldExtractor;
     }
 
-    private FieldExtractor getAnnotationExtractCombo(Class clazz, Field field) {
+    private FieldExtractor getAnnotationExtractCombo(Class<T> clazz, Field field) {
         FieldExtractor fieldExtractor = null;
         ComboExtract comboExtract = field.getAnnotation(ComboExtract.class);
         if (comboExtract != null) {
             ExtractBy[] extractBies = comboExtract.value();
             Selector selector;
-            switch (comboExtract.op()) {
-                case And:
-                    selector = new AndSelector(ExtractorUtils.getSelectors(extractBies));
-                    break;
-                case Or:
-                    selector = new OrSelector(ExtractorUtils.getSelectors(extractBies));
-                    break;
-                default:
-                    selector = new AndSelector(ExtractorUtils.getSelectors(extractBies));
+            if (comboExtract.op() == ComboExtract.Op.Or) {
+                selector = new OrSelector(ExtractorUtils.getSelectors(extractBies));
+            } else {
+                selector = new AndSelector(ExtractorUtils.getSelectors(extractBies));
             }
             fieldExtractor = new FieldExtractor(field, selector, comboExtract.source() == ComboExtract.Source.RawHtml ? FieldExtractor.Source.RawHtml : FieldExtractor.Source.Html,
                     comboExtract.notNull(), comboExtract.multi() || List.class.isAssignableFrom(field.getType()));
@@ -122,7 +117,7 @@ class PageModelExtractor {
         return fieldExtractor;
     }
 
-    private FieldExtractor getAnnotationExtractBy(Class clazz, Field field) {
+    private FieldExtractor getAnnotationExtractBy(Class<T> clazz, Field field) {
         FieldExtractor fieldExtractor = null;
         ExtractBy extractBy = field.getAnnotation(ExtractBy.class);
         if (extractBy != null) {
@@ -151,7 +146,7 @@ class PageModelExtractor {
         return fieldExtractor;
     }
 
-    public static Method getSetterMethod(Class clazz, Field field) {
+    public Method getSetterMethod(Class<T> clazz, Field field) {
         String name = "set" + StringUtils.capitalize(field.getName());
         try {
             Method declaredMethod = clazz.getDeclaredMethod(name, field.getType());
@@ -219,8 +214,7 @@ class PageModelExtractor {
                 return os;
             } else {
                 String select = objectExtractor.getSelector().select(page.getRawText());
-                Object o = processSingle(page, select, false);
-                return o;
+                return processSingle(page, select, false);
             }
         }
     }
@@ -300,11 +294,7 @@ class PageModelExtractor {
             if (AfterExtractor.class.isAssignableFrom(clazz)) {
                 ((AfterExtractor) o).afterProcess(page);
             }
-        } catch (InstantiationException e) {
-            logger.error("extract fail", e);
-        } catch (IllegalAccessException e) {
-            logger.error("extract fail", e);
-        } catch (InvocationTargetException e) {
+        } catch (Exception e) {
             logger.error("extract fail", e);
         }
         return o;
@@ -322,7 +312,7 @@ class PageModelExtractor {
     }
 
     private List<Object> convert(List<String> values, ObjectFormatter objectFormatter) {
-        List<Object> objects = new ArrayList<Object>();
+        List<Object> objects = new ArrayList<>();
         for (String value : values) {
             Object converted = convert(value, objectFormatter);
             if (converted != null) {
@@ -342,7 +332,7 @@ class PageModelExtractor {
         fieldExtractor.getField().set(o, value);
     }
 
-    Class getClazz() {
+    Class<T> getClazz() {
         return clazz;
     }
 
