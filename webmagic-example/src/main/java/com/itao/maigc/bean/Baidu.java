@@ -1,10 +1,10 @@
 package com.itao.maigc.bean;
 
 import lombok.Data;
-import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.model.AfterExtractor;
-import us.codecraft.webmagic.model.annotation.ExtractBy;
-import us.codecraft.webmagic.model.annotation.TargetUrl;
+import com.itao.webmagic.Page;
+import com.itao.webmagic.model.AfterExtractor;
+import com.itao.webmagic.model.annotation.ExtractBy;
+import com.itao.webmagic.model.annotation.TargetUrl;
 
 @Data
 @TargetUrl("http://book.zongheng.com/store.html")

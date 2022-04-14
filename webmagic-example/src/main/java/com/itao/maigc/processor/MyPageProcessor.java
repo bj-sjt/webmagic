@@ -2,10 +2,10 @@ package com.itao.maigc.processor;
 
 import com.itao.maigc.bean.Baidu3;
 import com.itao.maigc.pipeline.MysqlPipeline;
-import us.codecraft.webmagic.Page;
-import us.codecraft.webmagic.Request;
-import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.processor.PageProcessor;
+import com.itao.webmagic.Page;
+import com.itao.webmagic.Request;
+import com.itao.webmagic.Site;
+import com.itao.webmagic.processor.PageProcessor;
 
 
 public class MyPageProcessor implements PageProcessor {

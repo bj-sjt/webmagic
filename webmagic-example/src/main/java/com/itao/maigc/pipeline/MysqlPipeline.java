@@ -2,9 +2,9 @@ package com.itao.maigc.pipeline;
 
 import com.itao.maigc.bean.Baidu3;
 import lombok.extern.slf4j.Slf4j;
-import us.codecraft.webmagic.ResultItems;
-import us.codecraft.webmagic.Task;
-import us.codecraft.webmagic.pipeline.Pipeline;
+import com.itao.webmagic.ResultItems;
+import com.itao.webmagic.Task;
+import com.itao.webmagic.pipeline.Pipeline;
 
 @Slf4j
 public class MysqlPipeline implements Pipeline {
